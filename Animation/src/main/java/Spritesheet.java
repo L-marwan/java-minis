@@ -15,7 +15,7 @@ public class Spritesheet {
 		//have default sheet here to make sure I never have a null object
 	}
 
-	public Spritesheet(String aPath,int width,int height,int fpr) {
+	public Spritesheet(String aPath,int width,int height,int fpr, int numOfFrames) {
 
 		path = aPath;
 		frameWidth = width;
@@ -26,7 +26,8 @@ public class Spritesheet {
 
 	public BufferedImage[] getAllSubimages() {
 		// use frameWidth,frameHeight,framesPerRow to calculate and
-		BufferedImage[] images = new BufferedImage[](); 
+		BufferedImage[] images = new BufferedImage[numOfFrames]();
+		
 	}
 
 

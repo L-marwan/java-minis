@@ -7,6 +7,7 @@ public class Animator extends JFrame implements Runnable{
 
 	//Instance Variables
 	Spritesheet sheet;
+	int currentFrame;
 
 	//Constructor
 	public Animator(Spritesheet spritesheet) {
@@ -14,6 +15,7 @@ public class Animator extends JFrame implements Runnable{
 		sheet = spritesheet;
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setPreferredSize(new Dimension(128,128));
+		this.setResizable(false);
 		this.pack();
 		this.setVisible(true);
 
@@ -22,6 +24,7 @@ public class Animator extends JFrame implements Runnable{
 	//Methods
 	public void run() {
 		while (true) {
+
 			BufferedImage[] images = sheet.getAllSubimages();
 		}
 	}
