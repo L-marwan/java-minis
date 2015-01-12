@@ -24,8 +24,9 @@ public class Spritesheet {
 
 	}
 
-	public BufferedImage getAllImages() {
-		
+	public BufferedImage[] getAllSubimages() {
+		// use frameWidth,frameHeight,framesPerRow to calculate and
+		BufferedImage[] images = new BufferedImage[](); 
 	}
 
 
