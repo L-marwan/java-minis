@@ -1,23 +1,34 @@
 package com.kahl.animation;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 import java.awt.Dimension;
+import java.awt.image.BufferedImage;
 
 public class Animator extends JFrame implements Runnable{
 
 	//Instance Variables
-	Spritesheet sheet;
-	int currentFrame;
+	private Spritesheet sheet;
+	private int currentFrame;
+	private JPanel animationPane;
+	private BufferedImage image;
 
 	//Constructor
 	public Animator(Spritesheet spritesheet) {
-		
+
+		animationPanel = new JPanel() {
+			protected void paintComponent(Graphics g) {
+				super.paintComponent(g);
+				g.drawImage(image,0,0,null);
+			}
+		};		
 		sheet = spritesheet;
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setPreferredSize(new Dimension(128,128));
-		this.setResizable(false);
-		this.pack();
-		this.setVisible(true);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setPreferredSize(new Dimension(128,128));
+		setResizable(false);
+		add(animationPane);
+		pack();
+		setVisible(true);
 
 	}
 
@@ -25,13 +36,16 @@ public class Animator extends JFrame implements Runnable{
 	public void run() {
 		while (true) {
 			BufferedImage[] images = sheet.getAllSubimages();
-			//loop through sub-images and display to screen
+			for (int i = 0; i < images.length; i++) {
+				image = images[i];
+				animationPane.paintComponent();
+			}
 		}
 	}
 
 	public static void main (String[] args) {
 		try {
-			Spritesheet mySheet = new SpriteSheet("path/here/spritesheet.png",frameheight,frameWidth,framesPerRow); //Need to use args here to specify spritesheet path
+			Spritesheet mySheet = new SpriteSheet(args[0],(int) args[1],(int) args[2],(int) args[3],(int) args[4]);
 			Animator animator = new Animator(mySheet);
 			Thread animationThread = new Thread(animator);
 			animationThread.start();	

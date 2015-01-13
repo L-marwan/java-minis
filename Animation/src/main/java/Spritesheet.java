@@ -5,10 +5,12 @@ import java.awt.BufferedImage;
 public class Spritesheet {
 
 	//Instance Variables
-	String path;
-	int frameWidth;
-	int frameHeight;
-	int framesPerRow; 	
+	private String path;
+	private int frameWidth;
+	private int frameHeight;
+	private int framesPerRow;
+	private int frames;
+	private BufferedImage sheet = null;
 
 	//Constructors
 	public Spritesheet() {
@@ -21,13 +23,36 @@ public class Spritesheet {
 		frameWidth = width;
 		frameHeight = height;
 		framesPerRow = fpr;
+		frames = numOfFrames;
+
+		try {
+			sheet = ImageIO.read(new File(path);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
 	}
 
-	public BufferedImage[] getAllSubimages() {
-		// use frameWidth,frameHeight,framesPerRow to calculate and
-		BufferedImage[] images = new BufferedImage[numOfFrames];
-		//this needs to iterate through the sub images and add them to the images array
+	public int getHeight() {
+		return frameWidth;
+	}
+
+	public int getWidth() {
+		return frameWidth;
+	}
+
+	public int getFramesPerRow() {
+		return framesPerRow;
+	}
+
+	private BufferedImage getSprite(int x, int y, int h, int w) {
+		BufferedImage sprite = sheet.getSubimage(x,y,h,w);
+	}
+
+	public BufferedImage[] getAllSubimages(int h,int w,int f) {
+		BufferedImage[] images = new BufferedImage[frames];
+		currentImage = sheet.getSprite(x,y,h,w);
+		images.add(currentImage);
 		return images;
 		
 	}
