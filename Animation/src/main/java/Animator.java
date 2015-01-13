@@ -24,8 +24,8 @@ public class Animator extends JFrame implements Runnable{
 	//Methods
 	public void run() {
 		while (true) {
-
 			BufferedImage[] images = sheet.getAllSubimages();
+			//loop through sub-images and display to screen
 		}
 	}
 

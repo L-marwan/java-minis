@@ -8,7 +8,7 @@ public class Spritesheet {
 	String path;
 	int frameWidth;
 	int frameHeight;
-	int framesPerRow;
+	int framesPerRow; 	
 
 	//Constructors
 	public Spritesheet() {
@@ -26,7 +26,9 @@ public class Spritesheet {
 
 	public BufferedImage[] getAllSubimages() {
 		// use frameWidth,frameHeight,framesPerRow to calculate and
-		BufferedImage[] images = new BufferedImage[numOfFrames]();
+		BufferedImage[] images = new BufferedImage[numOfFrames];
+		//this needs to iterate through the sub images and add them to the images array
+		return images;
 		
 	}
 
