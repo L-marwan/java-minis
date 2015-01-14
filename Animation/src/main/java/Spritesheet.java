@@ -1,6 +1,9 @@
 package com.kahl.animation;
 
-import java.awt.BufferedImage;
+import java.awt.image.BufferedImage;
+import java.imageio.ImageIO;
+import java.io.IOException;
+import java.io.File;
 
 public class Spritesheet {
 
@@ -8,55 +11,69 @@ public class Spritesheet {
 	private String path;
 	private int frameWidth;
 	private int frameHeight;
-	private int framesPerRow;
-	private int frames;
 	private BufferedImage sheet = null;
+	private BufferedImage[] frames;
 
 	//Constructors
-	public Spritesheet() {
-		//have default sheet here to make sure I never have a null object
-	}
-
-	public Spritesheet(String aPath,int width,int height,int fpr, int numOfFrames) {
+	public Spritesheet(String aPath,int width,int height) {
 
 		path = aPath;
 		frameWidth = width;
 		frameHeight = height;
-		framesPerRow = fpr;
-		frames = numOfFrames;
 
 		try {
-			sheet = ImageIO.read(new File(path);
+			sheet = ImageIO.read(getClass().getResourceAsStream(path));
+			frames = sheet.getAllSprites();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
 	}
 
+	//Methods
+	public BufferedImage getSprite(int frame) {
+		return frames[frame];
+	}
+
 	public int getHeight() {
-		return frameWidth;
+		return frameHeigth;
 	}
 
 	public int getWidth() {
 		return frameWidth;
 	}
 
-	public int getFramesPerRow() {
-		return framesPerRow;
+	public int getColumnCount() {
+		return sheet.getWidth() / getWidth();
+	}
+
+	public int getRowCount() {
+		return sheet.getHeight() / getHeight();
+	}
+
+	public int getFrameCount() {
+		int cols = getColumnCount();
+		int rows = getRowCount();
+		return cols * rows;
 	}
 
 	private BufferedImage getSprite(int x, int y, int h, int w) {
 		BufferedImage sprite = sheet.getSubimage(x,y,h,w);
+		return sprite;
 	}
 
-	public BufferedImage[] getAllSubimages(int h,int w,int f) {
-		BufferedImage[] images = new BufferedImage[frames];
-		currentImage = sheet.getSprite(x,y,h,w);
-		images.add(currentImage);
-		return images;
-		
+	public BufferedImage[] getAllSprites() {
+		int frameCount = getFrameCount();
+		BufferedImage[] sprites = new BufferedImage[frames];
+		int index = 0;
+		for (int row = 0; row < getRowCount(); row++) {
+			for (int col = 0; col < getColumnCount(); col++) {
+				currentSprite = sheet.getSprite(col * getWidth(),row * getHeight(),getHeight(),getWidth());
+				sprites[index] = currentSprite;
+				index++;
+			}
+		}
+		return sprites;
 	}
-
-
 
 }
