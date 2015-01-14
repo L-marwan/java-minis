@@ -3,7 +3,6 @@ package com.kahl.animation;
 import java.awt.image.BufferedImage;
 import java.imageio.ImageIO;
 import java.io.IOException;
-import java.io.File;
 
 public class Spritesheet {
 
@@ -12,7 +11,6 @@ public class Spritesheet {
 	private int frameWidth;
 	private int frameHeight;
 	private BufferedImage sheet = null;
-	private BufferedImage[] frames;
 
 	//Constructors
 	public Spritesheet(String aPath,int width,int height) {
@@ -23,7 +21,6 @@ public class Spritesheet {
 
 		try {
 			sheet = ImageIO.read(getClass().getResourceAsStream(path));
-			frames = sheet.getAllSprites();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -31,9 +28,6 @@ public class Spritesheet {
 	}
 
 	//Methods
-	public BufferedImage getSprite(int frame) {
-		return frames[frame];
-	}
 
 	public int getHeight() {
 		return frameHeigth;
@@ -57,14 +51,14 @@ public class Spritesheet {
 		return cols * rows;
 	}
 
-	private BufferedImage getSprite(int x, int y, int h, int w) {
+	public BufferedImage getSprite(int x, int y, int h, int w) {
 		BufferedImage sprite = sheet.getSubimage(x,y,h,w);
 		return sprite;
 	}
 
 	public BufferedImage[] getAllSprites() {
 		int frameCount = getFrameCount();
-		BufferedImage[] sprites = new BufferedImage[frames];
+		BufferedImage[] sprites = new BufferedImage[frameCount];
 		int index = 0;
 		for (int row = 0; row < getRowCount(); row++) {
 			for (int col = 0; col < getColumnCount(); col++) {

@@ -14,7 +14,7 @@ public class AnimationPanel extends JPanel implements Runnable {
 	private Spritesheet sheet;
 	private int currentFrame;
 	private Thread animationThread;
-	private BufferedImage frames = null;
+	private BufferedImage[] frames;
 	private BufferedImage image;
 
 	public AnimationPanel() {
@@ -35,14 +35,15 @@ public class AnimationPanel extends JPanel implements Runnable {
 	public void run() {
 		frames = sheet.getAllSprites();
 		currentFrame = 0;
-		while (true) {
-			image = frames[currentFrame]
-			repaint();
-			currentFrame++;
-			if (currentFrame >= frames.length) {
-				currentFrame = 0;
+		Timer timer = new Timer(100,new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				image = frames[currentFrame % sheet.getFrameCount()];
+				repaint();
+				currentFrame++;
 			}
-		}
+		});
+		timer.start();
 	}
 
 	@Override
