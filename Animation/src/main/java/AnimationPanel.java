@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import javax.swing.Timer;
+import java.awt.image.BufferedImage;
 
 public class AnimationPanel extends JPanel implements Runnable {
 
@@ -19,11 +20,14 @@ public class AnimationPanel extends JPanel implements Runnable {
 
 	public AnimationPanel() {
 		super();
-		setPreferredSize(new Dimension(128,128));
+		setPreferredSize(new Dimension(300,300));
 		setFocusable(true);
 		requestFocus();
 		try {
-			sheet = new Spritesheet("",0,0);
+			sheet = new Spritesheet("src/main/resources/scarlet_walk_sprite_sheet.png",64,128);
+			if (sheet == null) {
+				throw new IOException();
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -38,9 +42,12 @@ public class AnimationPanel extends JPanel implements Runnable {
 		Timer timer = new Timer(100,new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				image = frames[currentFrame % sheet.getFrameCount()];
+				image = frames[currentFrame];
 				repaint();
 				currentFrame++;
+				if (currentFrame >= frames.length) {
+					currentFrame = 0;
+				}
 			}
 		});
 		timer.start();

@@ -12,15 +12,10 @@ public class Animator {
 		JFrame window = new JFrame("Animator");
 		window.setResizable(false);
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-		try {
-			window.setContentPane(new AnimationPanel());
-			window.pack();
-			window.setLocationRelativeTo(null);
-			window.setVisible(true);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		window.setContentPane(new AnimationPanel());
+		window.pack();
+		window.setLocationRelativeTo(null);
+		window.setVisible(true);
 
 	}
 

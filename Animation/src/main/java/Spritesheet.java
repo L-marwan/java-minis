@@ -1,8 +1,9 @@
 package com.kahl.animation;
 
 import java.awt.image.BufferedImage;
-import java.imageio.ImageIO;
+import javax.imageio.ImageIO;
 import java.io.IOException;
+import java.io.File;
 
 public class Spritesheet {
 
@@ -20,7 +21,7 @@ public class Spritesheet {
 		frameHeight = height;
 
 		try {
-			sheet = ImageIO.read(getClass().getResourceAsStream(path));
+			sheet = ImageIO.read(new File(path));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -30,7 +31,7 @@ public class Spritesheet {
 	//Methods
 
 	public int getHeight() {
-		return frameHeigth;
+		return frameHeight;
 	}
 
 	public int getWidth() {
@@ -51,18 +52,26 @@ public class Spritesheet {
 		return cols * rows;
 	}
 
-	public BufferedImage getSprite(int x, int y, int h, int w) {
-		BufferedImage sprite = sheet.getSubimage(x,y,h,w);
+	public BufferedImage getSprite(int x, int y, int w, int h) {
+		BufferedImage sprite = sheet.getSubimage(x,y,w,h);
 		return sprite;
 	}
 
 	public BufferedImage[] getAllSprites() {
+		int cols = getColumnCount();
+		int rows = getRowCount();
 		int frameCount = getFrameCount();
 		BufferedImage[] sprites = new BufferedImage[frameCount];
 		int index = 0;
+		System.out.println("cols = " + cols);
+        System.out.println("rows = " + rows);
+        System.out.println("frameCount = " + frameCount);
 		for (int row = 0; row < getRowCount(); row++) {
 			for (int col = 0; col < getColumnCount(); col++) {
-				currentSprite = sheet.getSprite(col * getWidth(),row * getHeight(),getHeight(),getWidth());
+				int x = col * getWidth();
+				int y = row * getHeight();
+				System.out.println("x: " + x + ", y: " + y + ", width: " + getWidth() + ", height: " + getHeight());
+				BufferedImage currentSprite = getSprite(col * getWidth(),row * getHeight(),getWidth(),getHeight());
 				sprites[index] = currentSprite;
 				index++;
 			}
